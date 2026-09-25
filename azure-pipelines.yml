@@ -57,3 +57,23 @@ jobs:
       targetPath: '$(Build.BinariesDirectory)/zipped-app'
       artifact: 'dotnet-web-drop'
       publishLocation: 'pipeline'
+
+# --- Append this directly underneath your Job 6 step ---
+- job: DeployToTestEnv
+  displayName: 'Deploy Web App to Azure'
+  dependsOn: TestAndPackageDotNet # Ensures deployment only runs if the build/tests pass!
+  steps:
+  
+  # 1. Download the zip artifact created by the first job
+  - download: current
+    artifact: 'dotnet-web-drop'
+
+  # 2. Deploy the zip directly to your Azure Web App
+  - task: AzureWebApp@1
+    displayName: 'Azure Web App Deploy'
+    inputs:
+      azureSubscription: 'Azure-Subscription-Link' # Matches the Service Connection name you just created
+      appType: 'webAppLinux'
+      appName: 'pipelinedemo' # Change this to match your Web App name in the Azure Portal
+      package: '$(Pipeline.Workspace)/dotnet-web-drop/**/*.zip'
+      
