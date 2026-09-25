@@ -72,7 +72,7 @@ jobs:
   - task: AzureWebApp@1
     displayName: 'Azure Web App Deploy'
     inputs:
-      azureSubscription: 'Azure-Subscription-Link' # Matches the Service Connection name you just created
+      azureSubscription: 'pipelinedemo' # Matches the Service Connection name you just created
       appType: 'webAppLinux'
       appName: 'pipelinedemo' # Change this to match your Web App name in the Azure Portal
       package: '$(Pipeline.Workspace)/dotnet-web-drop/**/*.zip'
