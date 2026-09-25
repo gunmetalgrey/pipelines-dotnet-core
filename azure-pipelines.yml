@@ -76,4 +76,4 @@ jobs:
       appType: 'webAppLinux'
       appName: 'pipelinedemo' # Change this to match your Web App name in the Azure Portal
       package: '$(Pipeline.Workspace)/dotnet-web-drop/**/*.zip'
-      
+      startUpCommand: 'dotnet pipelinedemo.dll'
